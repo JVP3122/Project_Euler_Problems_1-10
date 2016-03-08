@@ -2,10 +2,12 @@
 //#include<vector>
 
 int P1(int, int, int);
+int P2(int);
 
 void main() {
 	using namespace std;
-	cout << P1(3, 5, 1000) << endl;
+	cout << "The answer to problem 1 is " << P1(3, 5, 1000) << endl;
+	cout << "The answer to problem 2 is " << P2(4000000) << endl;
 }
 
 
@@ -18,5 +20,19 @@ int P1(int valOne, int valTwo, int maxVal) {
 		}
 		iterCount++;
 	} while (iterCount < maxVal);
+	return sumVal;
+}
+
+// Problem 2 - By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
+int P2(int maxVal) {
+	int fibFirst = 1, fibSecond = 1, fibTemp = 0, sumVal = 0;
+	while (fibSecond < maxVal) {
+		if (fibSecond % 2 == 0) {
+			sumVal = sumVal + fibSecond;
+		}
+		fibTemp = fibFirst + fibSecond;
+		fibFirst = fibSecond;
+		fibSecond = fibTemp;
+	}
 	return sumVal;
 }
