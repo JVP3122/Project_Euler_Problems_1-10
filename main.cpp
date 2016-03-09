@@ -11,6 +11,7 @@ bool prime(int);
 int P4();
 bool isPalindrome(int);
 long long int P5(int);
+void primeFactors(int);
 
 void main() {
 	using namespace std;
@@ -18,7 +19,8 @@ void main() {
 //	cout << "The answer to problem 2 is: " << P2(4000000) << endl;
 //	cout << "The answer to problem 3 is: " << P3(600851475143) << endl;
 //	cout << "The answer to problem 4 is: " << P4() << endl;
-	cout << "The answer to problem 5 is: " << P5(20) << endl;
+//	cout << "The answer to problem 5 is: " << P5(20) << endl;
+	primeFactors(64);
 }
 
 // Problem 1 - Find the sum of all multiples of 3 or 5 below 1000
@@ -129,16 +131,33 @@ bool isPalindrome(int i) {
 }
 
 long long int P5(int endVal) {
-	std::vector<int> factorVector;
-	std::vector<int> primeVector;
+	using namespace std;
+	vector<int> factorVector;
+	vector<int> primeVector;
 	long long int multipleVal = 1;
 	for (int i = 1; i <= endVal; i++) {
 		if (prime(i) == true)
 			primeVector.push_back(i);
 	}
 	for (int i = 0; i < primeVector.size(); i++) {
-		std::cout << primeVector[i] << " ";
+		cout << primeVector[i] << " ";
 	}
 
 	return 0;
+}
+
+void primeFactors(int n) {
+	while (n % 2 == 0) {
+		printf("%d ", 2);
+		n = n / 2;
+	}
+
+	for (int i = 3; i <= sqrt(n); i = i + 2) {
+		while (n % i == 0) {
+			printf("%d ", i);
+			n = n / i;
+		}
+	}
+	if (n > 2)
+		printf("%d ", n);
 }
