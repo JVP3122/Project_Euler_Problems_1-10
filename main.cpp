@@ -8,14 +8,15 @@ int P1(int, int, int);
 int P2(int);
 int P3(long long int);
 bool prime(int);
-void P4();
+int P4();
+bool isPalindrome(int);
 
 void main() {
 	using namespace std;
-//	cout << "The answer to problem 1 is: " << P1(3, 5, 1000) << endl;
-//	cout << "The answer to problem 2 is: " << P2(4000000) << endl;
-//	cout << "The answer to problem 3 is: " << P3(600851475143) << endl;
-	P4();
+	cout << "The answer to problem 1 is: " << P1(3, 5, 1000) << endl;
+	cout << "The answer to problem 2 is: " << P2(4000000) << endl;
+	cout << "The answer to problem 3 is: " << P3(600851475143) << endl;
+	cout << "The answer to problem 4 is: " << P4() << endl;
 }
 
 // Problem 1 - Find the sum of all multiples of 3 or 5 below 1000
@@ -89,10 +90,25 @@ bool prime(int inputVal) {
 }
 
 // Problem 4 - Find the largest palindrome made from the product of two 3-digit numbers.
-void P4() {
+int P4() {
+	int testVal, finalVal = 0;
+
+	for (int i = 999; i > 99; i--) {
+		for (int j = i; j > 99; j--) {
+			testVal = i*j;
+			if ((isPalindrome(testVal) == true) && (testVal > finalVal)) {
+				finalVal = testVal;
+			}
+			if ((double)testVal / (double)finalVal < 0.75)
+				break;
+		}
+	}
+	return finalVal;
+}
+
+bool isPalindrome(int i) {
 	std::vector<int> myVector1;
 	std::vector<int> myVector2;
-	int i = 123454321;
 	bool palindrome = true;
 	while (i) {
 		myVector1.push_back(i % 10);
@@ -100,10 +116,10 @@ void P4() {
 		i /= 10;
 	}
 	std::reverse(myVector1.begin(), myVector1.end());
-	for (int j = 0; j < myVector1.size();j++) {
+	for (int j = 0; j < myVector1.size(); j++) {
 		if (myVector1[j] != myVector2[j]) {
 			palindrome = false;
 		}
 	}
-	std::cout << palindrome << std::endl;
+	return palindrome;
 }
