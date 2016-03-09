@@ -2,17 +2,20 @@
 #include<math.h>
 #include<vector>
 #include<limits>
+#include<algorithm>
 
 int P1(int, int, int);
 int P2(int);
 int P3(long long int);
 bool prime(int);
+void P4();
 
 void main() {
 	using namespace std;
-	cout << "The answer to problem 1 is: " << P1(3, 5, 1000) << endl;
-	cout << "The answer to problem 2 is: " << P2(4000000) << endl;
-	cout << "The answer to problem 3 is: " << P3(600851475143) << endl;
+//	cout << "The answer to problem 1 is: " << P1(3, 5, 1000) << endl;
+//	cout << "The answer to problem 2 is: " << P2(4000000) << endl;
+//	cout << "The answer to problem 3 is: " << P3(600851475143) << endl;
+	P4();
 }
 
 // Problem 1 - Find the sum of all multiples of 3 or 5 below 1000
@@ -83,4 +86,24 @@ bool prime(int inputVal) {
 		}
 		return primeVal;
 	}
+}
+
+// Problem 4 - Find the largest palindrome made from the product of two 3-digit numbers.
+void P4() {
+	std::vector<int> myVector1;
+	std::vector<int> myVector2;
+	int i = 123454321;
+	bool palindrome = true;
+	while (i) {
+		myVector1.push_back(i % 10);
+		myVector2.push_back(i % 10);
+		i /= 10;
+	}
+	std::reverse(myVector1.begin(), myVector1.end());
+	for (int j = 0; j < myVector1.size();j++) {
+		if (myVector1[j] != myVector2[j]) {
+			palindrome = false;
+		}
+	}
+	std::cout << palindrome << std::endl;
 }
