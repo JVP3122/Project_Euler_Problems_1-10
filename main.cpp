@@ -1,5 +1,6 @@
 #include<iostream>
 #include<math.h>
+#include<cmath>
 #include<vector>
 #include<limits>
 #include<algorithm>
@@ -10,6 +11,8 @@ int P3(long long int);
 bool prime(int);
 int P4();
 bool isPalindrome(int);
+long long int P5(int);
+void primeFactors(int, std::vector<int>& factorVector);
 
 void main() {
 	using namespace std;
@@ -17,6 +20,7 @@ void main() {
 	cout << "The answer to problem 2 is: " << P2(4000000) << endl;
 	cout << "The answer to problem 3 is: " << P3(600851475143) << endl;
 	cout << "The answer to problem 4 is: " << P4() << endl;
+	cout << "The answer to problem 5 is: " << P5(20) << endl;
 }
 
 // Problem 1 - Find the sum of all multiples of 3 or 5 below 1000
@@ -72,7 +76,9 @@ bool prime(int inputVal) {
 	using namespace std;
 	if (inputVal <= 1)
 		return false;
-	else if ((inputVal == 2) || (inputVal % 2 == 0))
+	else if (inputVal == 2)
+		return true;
+	else if (inputVal % 2 == 0)
 		return false;
 	else {
 		bool primeVal = true;
@@ -106,6 +112,7 @@ int P4() {
 	return finalVal;
 }
 
+// This function simply checks if integer i is a palindrome as defined in problem 4.
 bool isPalindrome(int i) {
 	std::vector<int> myVector1;
 	std::vector<int> myVector2;
@@ -122,4 +129,68 @@ bool isPalindrome(int i) {
 		}
 	}
 	return palindrome;
+}
+
+// Problem 5 - What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
+long long int P5(int endVal) {
+	/* The main goal of this exercise is to determine the minimum prime factorization that would account
+	for all integers up through and including endVal.  If we're completing this problem for
+	endVal = 10, then we would need 3 twos, 2 threes, 1 five, and 1 seven.  All integers up through and
+	including 10 can be made up of combinations of at most all of these numbers.  For example, 6 requires
+	1 two and 1 three, while 8 requires 3 twos but no other values.*/
+	using namespace std;
+	vector<int> primeVector;
+	long long int multipleVal = 1;
+	// Creates vector of all prime numbers up to the input integer.
+	for (int i = 1; i <= endVal; i++) {
+		if (prime(i) == true)
+			primeVector.push_back(i);
+	}
+	
+	vector<int> countVector(primeVector.size()); // Creates vector to keep track of max count of each prime factor
+
+	for (int i = 1; i <= endVal; i++) {
+		vector<int> factorVector; // Create blank vector to return prime factorization of integer i
+		primeFactors(i, factorVector); // Populate prime factorization vector
+		
+		// For integer i above, cycle through each prime number up to and including i
+		// and check how many times it shows up in the prime factorization (factorVector)
+		for (int j = 0; j < primeVector.size(); j++) {
+			int iter = 0;
+			for (int k = 0; k < factorVector.size(); k++) {
+				if (factorVector[k] == primeVector[j]) {
+					iter++;
+				}
+			}
+			// Only replace the value in the count vector if the new count is higher than the previous one
+			// For example, countVector[0] (corresponding to 2) would be 1 until i=4 in the main loop, when it would
+			// become 2, until i=8 in the main loop in which case it would become 3, etc.
+			if (countVector[j] < iter)
+				countVector[j] = iter;
+		}
+	}
+	for (int i = 0; i < countVector.size(); i++) {
+		// Uncomment the line below to get a visual of how the primeVector and countVector vectors work.
+		// cout << "The count for prime number " << primeVector[i] << " is " << countVector[i] << endl;
+		multipleVal*=pow((int)primeVector[i],(int)countVector[i]); // This line simply raises all prime values to their respective powers.
+	}
+	return multipleVal;
+}
+
+// This function returns the entire prime factorization of integer n.  A blank vector needs to be passed which will be popluated with factors.
+void primeFactors(int n, std::vector<int>& factorVector) {
+	//std::vector<int> factorVector;
+	while (n % 2 == 0) {
+		factorVector.push_back(2);
+		n = n / 2;
+	}
+
+	for (int i = 3; i <= sqrt(n); i = i + 2) {
+		while (n % i == 0) {
+			factorVector.push_back(i);
+			n = n / i;
+		}
+	}
+	if (n > 2)
+		factorVector.push_back(n);
 }
