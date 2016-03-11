@@ -13,6 +13,7 @@ int P4();
 bool isPalindrome(int);
 long long int P5(int);
 void primeFactors(int, std::vector<int>& factorVector);
+long long int P6(int);
 
 void main() {
 	using namespace std;
@@ -21,6 +22,7 @@ void main() {
 	cout << "The answer to problem 3 is: " << P3(600851475143) << endl;
 	cout << "The answer to problem 4 is: " << P4() << endl;
 	cout << "The answer to problem 5 is: " << P5(20) << endl;
+	cout << "The answer to problem 5 is: " << P6(100) << endl;
 }
 
 // Problem 1 - Find the sum of all multiples of 3 or 5 below 1000
@@ -193,4 +195,17 @@ void primeFactors(int n, std::vector<int>& factorVector) {
 	}
 	if (n > 2)
 		factorVector.push_back(n);
+}
+
+// Problem 6 - Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.
+long long int P6(int endVal) {
+	long long int indSquare = 0;
+	long long int sumSquare = 0;
+
+	for (int i = 0; i <= endVal; i++) {
+		indSquare += pow(i, 2);
+		sumSquare += i;
+	}
+	sumSquare = pow(sumSquare, 2);
+	return sumSquare - indSquare;
 }
