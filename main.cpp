@@ -15,17 +15,17 @@ bool isPalindrome(int);
 long long int P5(int);
 void primeFactors(int, std::vector<int>& factorVector);
 long long int P6(int);
-void P7();
+int P7();
 
 void main() {
 	using namespace std;
-	//cout << "The answer to problem 1 is: " << P1(3, 5, 1000) << endl;
-	//cout << "The answer to problem 2 is: " << P2(4000000) << endl;
-	//cout << "The answer to problem 3 is: " << P3(600851475143) << endl;
-	//cout << "The answer to problem 4 is: " << P4() << endl;
-	//cout << "The answer to problem 5 is: " << P5(20) << endl;
-	//cout << "The answer to problem 5 is: " << P6(100) << endl;
-	P7();
+	cout << "The answer to problem 1 is: " << P1(3, 5, 1000) << endl;
+	cout << "The answer to problem 2 is: " << P2(4000000) << endl;
+	cout << "The answer to problem 3 is: " << P3(600851475143) << endl;
+	cout << "The answer to problem 4 is: " << P4() << endl;
+	cout << "The answer to problem 5 is: " << P5(20) << endl;
+	cout << "The answer to problem 6 is: " << P6(100) << endl;
+	cout << "The answer to problem 7 is: " << P7() << endl;
 }
 
 // Problem 1 - Find the sum of all multiples of 3 or 5 below 1000
@@ -213,13 +213,10 @@ long long int P6(int endVal) {
 	return sumSquare - indSquare;
 }
 
-void P7() {
+int P7() {
 	using namespace std;
-	int n = 120000;
-	int sum_of_elems = 0;
-	int p = 2;
-	int primeVal = 10001;
-	clock_t tStart = clock();
+	int n = 120000, sum_of_elems = 0, p = 2, primeVal = 10001, returnVal;
+//	clock_t tStart = clock();
 	vector<bool> vectorA(n-1);
 	vector<int> numVector(n-1);
 	for (int i = 0; i < n - 1; i++) {
@@ -242,11 +239,11 @@ void P7() {
 
 	for (int i = 0; i < vectorA.size(); i++) {
 		sum_of_elems += vectorA[i];
-		if (sum_of_elems == primeVal)
-			cout << numVector[i] << endl;
+		if (sum_of_elems == primeVal) {
+			returnVal = numVector[i];
+			break;
+		}
 	}
-	cout << prime(104743) << endl;
-
-	cout << sum_of_elems << endl;
-	cout << (double)(clock() - tStart) / CLOCKS_PER_SEC << endl;
+	return returnVal;
+//	cout << (double)(clock() - tStart) / CLOCKS_PER_SEC << endl;
 }
