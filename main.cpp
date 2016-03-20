@@ -4,6 +4,7 @@
 #include<vector>
 #include<limits>
 #include<algorithm>
+#include<time.h>
 
 int P1(int, int, int);
 int P2(int);
@@ -14,6 +15,7 @@ bool isPalindrome(int);
 long long int P5(int);
 void primeFactors(int, std::vector<int>& factorVector);
 long long int P6(int);
+int P7();
 
 void main() {
 	using namespace std;
@@ -22,7 +24,8 @@ void main() {
 	cout << "The answer to problem 3 is: " << P3(600851475143) << endl;
 	cout << "The answer to problem 4 is: " << P4() << endl;
 	cout << "The answer to problem 5 is: " << P5(20) << endl;
-	cout << "The answer to problem 5 is: " << P6(100) << endl;
+	cout << "The answer to problem 6 is: " << P6(100) << endl;
+	cout << "The answer to problem 7 is: " << P7() << endl;
 }
 
 // Problem 1 - Find the sum of all multiples of 3 or 5 below 1000
@@ -208,4 +211,39 @@ long long int P6(int endVal) {
 	}
 	sumSquare = pow(sumSquare, 2);
 	return sumSquare - indSquare;
+}
+
+int P7() {
+	using namespace std;
+	int n = 120000, sum_of_elems = 0, p = 2, primeVal = 10001, returnVal;
+//	clock_t tStart = clock();
+	vector<bool> vectorA(n-1);
+	vector<int> numVector(n-1);
+	for (int i = 0; i < n - 1; i++) {
+		vectorA[i] = true;
+		numVector[i] = i + 2;
+		//cout << numVector[i] << " " << vectorA[i] << endl;
+	}
+	while (pow(p, 2) <= n) {
+		int j = pow(p, 2);
+		while (j <= n) {
+			//cout << j << endl;
+			vectorA[j-2] = false;
+			j += p;
+		}
+		p += 1;
+	}
+	//for (int i = 0; i < n - 1; i++) {
+	//	cout << numVector[i] << " " << vectorA[i] << endl;
+	//}
+
+	for (int i = 0; i < vectorA.size(); i++) {
+		sum_of_elems += vectorA[i];
+		if (sum_of_elems == primeVal) {
+			returnVal = numVector[i];
+			break;
+		}
+	}
+	return returnVal;
+//	cout << (double)(clock() - tStart) / CLOCKS_PER_SEC << endl;
 }
