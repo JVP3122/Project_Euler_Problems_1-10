@@ -213,29 +213,24 @@ long long int P6(int endVal) {
 	return sumSquare - indSquare;
 }
 
+// Problem 7 - What is the 10 001st prime number?
 int P7() {
 	using namespace std;
 	int n = 120000, sum_of_elems = 0, p = 2, primeVal = 10001, returnVal;
-//	clock_t tStart = clock();
 	vector<bool> vectorA(n-1);
 	vector<int> numVector(n-1);
 	for (int i = 0; i < n - 1; i++) {
 		vectorA[i] = true;
 		numVector[i] = i + 2;
-		//cout << numVector[i] << " " << vectorA[i] << endl;
 	}
 	while (pow(p, 2) <= n) {
 		int j = pow(p, 2);
 		while (j <= n) {
-			//cout << j << endl;
 			vectorA[j-2] = false;
 			j += p;
 		}
 		p += 1;
 	}
-	//for (int i = 0; i < n - 1; i++) {
-	//	cout << numVector[i] << " " << vectorA[i] << endl;
-	//}
 
 	for (int i = 0; i < vectorA.size(); i++) {
 		sum_of_elems += vectorA[i];
@@ -245,5 +240,4 @@ int P7() {
 		}
 	}
 	return returnVal;
-//	cout << (double)(clock() - tStart) / CLOCKS_PER_SEC << endl;
 }
